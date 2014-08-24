@@ -53,8 +53,8 @@ function! jsdoc#insert()
     let l:desc = input('Description: ')
   endif
   call add(l:lines, l:space. '/**')
-  call add(l:lines, l:space . ' * ' . l:desc)
-  call add(l:lines, l:space . ' *')
+  call add(l:lines, l:space . '  ' . l:desc)
+  call add(l:lines, l:space . '')
   let l:funcName = ''
   if l:flag
     let l:funcName = substitute(l:line, l:regex, '\1', "g")
@@ -62,8 +62,8 @@ function! jsdoc#insert()
     let l:args = split(l:arg, '\s*,\s*')
 
     if g:jsdoc_additional_descriptions == 1
-      call add(l:lines, l:space . ' * @name ' . l:funcName)
-      call add(l:lines, l:space . ' * @function')
+      call add(l:lines, l:space . '  @name ' . l:funcName)
+      call add(l:lines, l:space . '  @function')
     endif
 
     for l:arg in l:args
@@ -74,9 +74,9 @@ function! jsdoc#insert()
         if l:argDescription != ''
           let l:argDescription = ' ' . l:argDescription
         endif
-        call add(l:lines, l:space . ' * @param {' . l:argType . '} ' . l:arg . l:argDescription)
+        call add(l:lines, l:space . '  @param {' . l:argType . '} ' . l:arg . l:argDescription)
       else
-        call add(l:lines, l:space . ' * @param ' . l:arg)
+        call add(l:lines, l:space . '  @param ' . l:arg)
       endif
     endfor
   endif
@@ -91,15 +91,15 @@ function! jsdoc#insert()
         if l:returnDescription != ''
           let l:returnDescription = ' ' . l:returnDescription
         endif
-        call add(l:lines, l:space . ' * @return {' . l:returnType . '}' . l:returnDescription)
+        call add(l:lines, l:space . '  @return {' . l:returnType . '}' . l:returnDescription)
       else
-        call add(l:lines, l:space . ' * @return {undefined}')
+        call add(l:lines, l:space . '  @return {undefined}')
       endif
     else
-      call add(l:lines, l:space . ' * @return {undefined}')
+      call add(l:lines, l:space . '  @return {undefined}')
     endif
   endif
-  call add(l:lines, l:space . ' */')
+  call add(l:lines, l:space . '*/')
 
   let l:paste = &g:paste
   let &g:paste = 1
